@@ -1,0 +1,34 @@
+library("RPostgreSQL")
+library("sqldf")
+library("foreach")
+library("iterators")
+
+# Load personal config (http://stackoverflow.com/questions/13681310/reading-configuration-from-text-file)
+personalConfig <- read.table("personal_config.properties", header=FALSE, sep="=", row.names=1, strip.white=TRUE, na.strings="NA", stringsAsFactors=FALSE)
+
+print (sprintf("Read personal config: %s %s",personalConfig['dbName',],personalConfig["dbServer",]))
+
+# Modified From
+# http://jeromyanglim.tumblr.com/post/33418725712/how-to-source-all-r-files-in-a-directory
+SourceDir <- function(path, trace = TRUE, skip = c(), ...) {
+  for (nm in list.files(path, pattern = "\\.[RrSsQq]$")) {
+    if( !(nm %in% skip) ) {
+      if(trace) cat(path, nm, ":")           
+      source(file.path(path, nm), ...)
+      if(trace) cat("\n")
+    }
+  }
+}
+
+## .First() run at the start of every R session. 
+## Use to load commonly used packages? 
+.First <- function() {
+  # library(ggplot2)
+  cat("\nSuccessfully loaded .Rprofile at", date(), "\n")
+}
+
+## .Last() run at the end of the session
+.Last <- function() {
+  # save command history here?
+  cat("\nGoodbye at ", date(), "\n")
+}
