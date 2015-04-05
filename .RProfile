@@ -1,12 +1,24 @@
 library("RPostgreSQL")
 library("sqldf")
+library("data.table")
 library("foreach")
 library("iterators")
 
 # Load personal config (http://stackoverflow.com/questions/13681310/reading-configuration-from-text-file)
 personalConfig <- read.table("personal_config.properties", header=FALSE, sep="=", row.names=1, strip.white=TRUE, na.strings="NA", stringsAsFactors=FALSE)
 
-print (sprintf("Read personal config: %s %s",personalConfig['dbName',],personalConfig["dbServer",]))
+print(sprintf("Read personal config: %s %s",personalConfig['dbName',],personalConfig["dbServer",]))
+
+# Setup data connection defaults
+options(sqldf.RPostgreSQL.dbname = personalConfig["dbName", 1],
+        sqldf.RPostgreSQL.host = personalConfig["dbServer", 1],
+        sqldf.RPostgreSQL.password = personalConfig["dbPassword", 1],
+        sqldf.RPostgreSQL.user = personalConfig["dbUsername", 1],
+        sqldf.verbose = FALSE
+);
+
+dataRoot <- personalConfig["dataRoot", 1]
+dataRawTables <- paste0(dataRoot, "/raw-tables") 
 
 # Modified From
 # http://jeromyanglim.tumblr.com/post/33418725712/how-to-source-all-r-files-in-a-directory
