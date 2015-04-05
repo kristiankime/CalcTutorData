@@ -9,13 +9,13 @@ calcTutorTables <- list(
   TableRFormat("application_users"),
   TableRFormat("courses"),
   TableRFormat("courses_2_quizzes"),
-  TableRFormat("derivative_answers"),
+  TableRFormat("derivative_answers", function(d){d[,correct:=as.logical(correct)]}),
   TableRFormat("derivative_questions"),
   TableRFormat("games"),    
   TableRFormat("organizations"),
   TableRFormat("quizzes"),
   TableRFormat("secure_social_logins"),
-  TableRFormat("tangent_answers"),
+  TableRFormat("tangent_answers", function(d){d[,correct:=as.logical(correct)]}),
   TableRFormat("tangent_questions"),
   TableRFormat("users_2_courses")
 )             
@@ -23,11 +23,14 @@ calcTutorTables <- list(
 RawTableFile <- function(table) { paste0(dataRawTables, "/", table,".rds") }
 
 CalcTutorData.PostgreSQL2File <- function() {
-  GetDataTable <- function(table) { sqldf(paste0("SELECT * FROM ", table)) }
+  GetDataTable <- function(table) { data.table(sqldf(paste0("SELECT * FROM ", table))) }
   
   foreach(table = calcTutorTables, .combine=c) %do% {
     tableName <- table$name
     data <- GetDataTable(tableName)
+    foreach(func = table$updates) %do% {
+      func(data)
+    }
     saveRDS(data, file=RawTableFile(tableName))
     paste0(tableName, " saved")
   }
