@@ -17,7 +17,7 @@ calcTutorTables <- list(
   TableRFormat("secure_social_logins"),
   TableRFormat("tangent_answers"),
   TableRFormat("tangent_questions"),
-  TableRFormat("users_2_courses"),
+  TableRFormat("users_2_courses")
 )             
 
 RawTableFile <- function(table) { paste0(dataRawTables, "/", table,".rds") }

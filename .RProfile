@@ -32,6 +32,8 @@ SourceDir <- function(path, trace = TRUE, skip = c(), ...) {
   }
 }
 
+SourceDir("R/raw-tables")
+
 ## .First() run at the start of every R session. 
 ## Use to load commonly used packages? 
 .First <- function() {
