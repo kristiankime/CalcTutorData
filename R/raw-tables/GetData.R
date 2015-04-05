@@ -21,6 +21,7 @@ calcTutorTables <- list(
 )             
 
 RawTableFile <- function(table) { paste0(dataRawTables, "/", table,".rds") }
+CSVTableFile <- function(table) { paste0(dataRawTables, "/", table,".csv") }
 
 CalcTutorData.PostgreSQL2File <- function() {
   GetDataTable <- function(table) { data.table(sqldf(paste0("SELECT * FROM ", table))) }
@@ -32,6 +33,7 @@ CalcTutorData.PostgreSQL2File <- function() {
       func(data)
     }
     saveRDS(data, file=RawTableFile(tableName))
+    write.csv(data, file=CSVTableFile(tableName))
     paste0(tableName, " saved")
   }
 }
