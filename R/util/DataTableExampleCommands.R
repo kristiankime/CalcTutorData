@@ -21,6 +21,11 @@ four  <- 4
 func <- function(a) { a }
 
 # ==========================================
+# Extract elements
+# ==========================================
+# https://stat.ethz.ch/R-manual/R-devel/library/base/html/Extract.data.frame.html
+
+# ==========================================
 # Select
 # ==========================================
 
@@ -111,4 +116,16 @@ setorderv(data, c("col3", "col2", "col1"), na.last=TRUE)
 # ==========================================
 # Untion / Concantenate
 # ==========================================
+
 rbindlist(list(data, data))
+
+# ==========================================
+# Write to File / CSV / 
+# ==========================================
+
+# ---- CSV ----
+# write.table
+# write.csv
+
+# ---- RDS ----
+# saveRDS
