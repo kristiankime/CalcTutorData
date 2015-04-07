@@ -25,6 +25,9 @@ func <- function(a) { a }
 # ==========================================
 # https://stat.ethz.ch/R-manual/R-devel/library/base/html/Extract.data.frame.html
 
+data[[1]] # extract a column
+data[2,1] # extract a value
+
 # ==========================================
 # Select
 # ==========================================
@@ -105,13 +108,14 @@ data[order(col1, col2)]
 # Decreasing
 data[order(-rank(col1), col2)]
 
+#setorder(data, "col3", "col2", "col1", na.last=TRUE)
+#setorderv(data, c("col3", "col2", "col1"), na.last=TRUE)
+
+
 # ==========================================
 # Change Column Order (In place) / Reorder Columns
 # ==========================================
-
-#setcolorder(data, c("col4", "col3", "col2", "col1")) # Might fail if columns have been added
-setorder(data, "col3", "col2", "col1", na.last=TRUE)
-setorderv(data, c("col3", "col2", "col1"), na.last=TRUE)
+# setcolorder(data, c("col4", "col3", "col2", "col1")) # will fail it all columns aren't listed
 
 # ==========================================
 # Untion / Concantenate
