@@ -29,6 +29,11 @@ ftable <- function(dt) {
       ftable(data)
     },
      
+    union = function(otherTable, use.names=fill, fill=TRUE) {
+      data <- rbindlist(list(dt, otherTable), use.names=use.names, fill=fill)
+      ftable(data)
+    },
+    
     dt = dt
     )
   class(ret) <- "ftable"

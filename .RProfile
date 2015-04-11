@@ -3,6 +3,7 @@ library("sqldf")
 library("data.table")
 library("foreach")
 library("iterators")
+library("RUnit")
 
 # Load personal config (http://stackoverflow.com/questions/13681310/reading-configuration-from-text-file)
 personalConfig <- read.table("personal_config.properties", header=FALSE, sep="=", row.names=1, strip.white=TRUE, na.strings="NA", stringsAsFactors=FALSE)
@@ -33,6 +34,7 @@ SourceDir <- function(path, trace = TRUE, skip = c(), ...) {
 }
 
 SourceDir("R/raw-tables")
+SourceDir("R/util", skip = c("DataTableExampleCommands.R"))
 
 ## .First() run at the start of every R session. 
 ## Use to load commonly used packages? 
