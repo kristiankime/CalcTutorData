@@ -18,5 +18,8 @@ test.ftable.selectE.with_strings <- function() {
   checkEquals.data.table(output, data.table(col1=1:3, col3=7:9))
 }
 
-
+test.ftable.union.works <- function() {
+  output <- ftable(data.table(col1=1:3, col2=4:6, col3=7:9))$union(data.table(col1=4:6, col2=7:9, col3=10:12))$dt
+  checkEquals.data.table(output, data.table(col1=1:6, col2=4:9, col3=7:12))
+}
 
