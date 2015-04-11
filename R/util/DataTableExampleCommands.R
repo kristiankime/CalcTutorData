@@ -46,17 +46,25 @@ data[, two, with=FALSE]
 data[, c(one, two), with=FALSE]
 
 # Direct Name
+data[, col1, with=TRUE]
 
 # Direct Name Multiple
-data[, list(col2, col3), with=FALSE]
+data[, list(col2, col3), with=TRUE]
 
 # Indirect Name
 data[, col1Name, with=FALSE]
 data[, "col1", with=FALSE]
+data[, list(get("col1")), with=TRUE]
+data[, list(col1=get("col1")), with=TRUE]
+data[, .(col1=get("col1")), with=TRUE]
+
 
 # Indirect Name Multiple
 data[, c(col2Name, col3Name), with=FALSE]
 data[, c("col2", "col3"), with=FALSE]
+
+foo <- quote(list(col1=get("col1")))
+data[, eval(foo)]
 
 # ==========================================
 # Group By

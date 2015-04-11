@@ -11,24 +11,33 @@ ftable <- function(dt) {
     # usage: fdt$filter(col1 == 1 & col2 == 4)
     filter = function(filters) {
       expr <- substitute(filters)
-      print(expr)
       data <- dt[eval(expr)]
       ftable(data)
     },
     
-    # usage: fdt$select(col1, col2)
+    # usage: pass in something that will get wrapped in a list before evaluation
+    # example: data$select(col1, col2)
     select = function(...) {
       expr <- substitute(list(...))
-      data <- dt[, eval(expr), with=TRUE]
+      data <- dt[, eval(expr)]
       ftable(data)
     },
     
-    selectNoList = function(columns) {
-      expr <- substitute(columns)
-      data <- dt[, eval(expr), with=TRUE]
+    # usage: passed through raw 
+    # example: data$select(list(col1, col2))
+    selectR = function(statement) {
+      expr <- substitute(statement)
+      data <- dt[, eval(expr)]
       ftable(data)
     },
-     
+    
+    # usage: Pass in quoted data that will get evaled
+    # example: foo <- quote(list(col1, col2)); data$select(foo);
+    selectE = function(expr) {
+      data <- dt[, eval(expr)]
+      ftable(data)
+    },
+    
     union = function(otherTable, use.names=fill, fill=TRUE) {
       data <- rbindlist(list(dt, otherTable), use.names=use.names, fill=fill)
       ftable(data)
@@ -45,8 +54,8 @@ print.ftable <- function(x, ...) {
   print(x$dt, ...)
 }
 
-data <- data.table(col1 = 1:3, col2 = 4:6, col3 = 7:9, col4 = 10:12)
-fdt <- ftable(data)
-fdt$filter( col1 == 1 & col2 == 4 )
-fdt$select(col1, col2)
+# data <- data.table(col1 = 1:3, col2 = 4:6, col3 = 7:9, col4 = 10:12)
+# fdt <- ftable(data)
+# fdt$filter( col1 == 1 & col2 == 4 )
+# fdt$select(col1, col2)
 

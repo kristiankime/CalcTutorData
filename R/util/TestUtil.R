@@ -1,5 +1,5 @@
 checkEquals.data.table <- function(table, expected){
-  checkEquals(colnames(table), colnames(expected), "column names were different")
+  checkEquals(colnames(table), colnames(expected), " column names were different")
   for(colName in colnames(table)) {
     # col1 <- table[, colName]
     # col2 <- expected[, colName]
