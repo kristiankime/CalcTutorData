@@ -23,3 +23,9 @@ test.ftable.union.works <- function() {
   checkEquals.data.table(output, data.table(col1=1:6, col2=4:9, col3=7:12))
 }
 
+test.ftable.merge.works <- function() {
+  td1 <- data.table(col1=1:3, col2=4:6)
+  td2 <- data.table(col1=1:3, col3=7:9)
+  output <- ftable(td1)$merge(td2, by=c("col1"))$dt
+  checkEquals.data.table(output, data.table(col1=1:3, col2=4:6, col3=7:9))
+}

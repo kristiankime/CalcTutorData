@@ -43,6 +43,11 @@ ftable <- function(dt) {
       ftable(data)
     },
     
+    merge = function(otherTable, by = NULL, all = FALSE, all.x = all, all.y = all, suffixes = c(".x", ".y"), allow.cartesian=getOption("datatable.allow.cartesian"), ...) {
+      data <- merge(x = dt, y = otherTable, by = by, all = all, all.x = all.x, all.y = all.y, suffixes = suffixes, allow.cartesian=allow.cartesian, ...)
+      ftable(data)
+    },
+    
     dt = dt
     )
   class(ret) <- "ftable"
