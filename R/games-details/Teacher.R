@@ -11,3 +11,10 @@ game.math10a.dt <- {
   setkey(game.math10a.dt, user_quiz_id)
   game.teacher.questions.dt <- game.math10a.dt[questions.user, allow.cartesian=TRUE]
 }
+
+game.onlyMath10a.dt <- game.math10a.dt[user_math10a == T & partner_math10a == T]
+
+saveRDS(game.math10a.dt, file=GamesTableFileRaw("games.teacher"))
+write.csv(game.math10a.dt, file=GamesTableFileCSV("games.teacher"))
+
+GamesTableFile()
