@@ -8,4 +8,20 @@ GameTeacherDetails <- function() {
     )$filter(!is.na(user_quiz_id))$dt
 
   game.teacher.questions <- ftable(game.math10a.dt)$leftJoin(questions.user, on=c("user_quiz_id", "user_id", "partner_id"))$filter(!is.na(game_id))$dt
+ 
+  ftable(game.teacher.questions)$select(
+    game_id,
+    user_id, user_name, user_math10a,
+    partner_id, partner_name, partner_math10a,
+    course_id,
+    user_skill,
+    partner_skill,
+    user_student_points,
+    user_teacher_points,
+    partner_student_points,
+    partner_teacher_points,
+    question_id, question_difficulty, type, correct, attempts,
+    requestor, request_date, response,
+    user_quiz_id, user_quiz_done, partner_quiz_id, partner_quiz_done, user_finished, partner_finished, game_finished, finished_date
+  )$dt
 }
