@@ -33,14 +33,21 @@ SourceDir <- function(path, trace = TRUE, skip = c(), ...) {
   }
 }
 
-SourceDir("R/raw-tables")
 SourceDir("R/util", skip = c("DataTableExampleCommands.R"))
+SourceDir("R/raw-tables")
+SourceDir("R/games-details")
+
+LoadData <- function() {
+  CalcTutorData.LoadFromFile()
+  LoadGamesDetails()
+}
 
 ## .First() run at the start of every R session. 
 ## Use to load commonly used packages? 
 .First <- function() {
   # library(ggplot2)
   cat("\nSuccessfully loaded .Rprofile at", date(), "\n")
+  cat(sprintf("Read personal dataRoot: %s \n", dataRoot))
 }
 
 ## .Last() run at the end of the session

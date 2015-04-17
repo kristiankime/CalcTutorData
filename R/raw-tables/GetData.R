@@ -42,7 +42,7 @@ CalcTutorData.LoadFromFile <- function() {
   foreach(table = calcTutorTables, .combine=c) %do% {
     tableName <- table$name
     data <- readRDS(RawTableFile(tableName))
-    assign(tableName, data, envir=.GlobalEnv)
+    assign(paste0("db.", gsub("_", ".", tableName), ".dt"), data, envir=.GlobalEnv)
     paste0(tableName, " loaded")
   }
 }

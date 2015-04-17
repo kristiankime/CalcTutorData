@@ -1,5 +1,5 @@
-games.details.dt <- {  
-  requestor.games <- ftable(games)$select(
+GamesDetails <-function() {  
+  requestor.games <- ftable(db.games.dt)$select(
                                 user_id = requestor,
                                 partner_id = requestee,
                                 game_id = id,
@@ -22,7 +22,7 @@ games.details.dt <- {
                                 partner_teacher_points = requestee_teacher_points,	
                                 finished_date = finished_date)$dt
   
-  requestee.games <- ftable(games)$select(
+  requestee.games <- ftable(db.games.dt)$select(
                                 user_id = requestee,
                                 partner_id = requestor,
                                 game_id = id,
