@@ -1,5 +1,5 @@
-games.details <- {  
-  requestor.games.dt <- ftable(games)$select(
+games.details.dt <- {  
+  requestor.games <- ftable(games)$select(
                                 user_id = requestor,
                                 partner_id = requestee,
                                 game_id = id,
@@ -22,7 +22,7 @@ games.details <- {
                                 partner_teacher_points = requestee_teacher_points,	
                                 finished_date = finished_date)$dt
   
-  requestee.games.dt <- ftable(games)$select(
+  requestee.games <- ftable(games)$select(
                                 user_id = requestee,
                                 partner_id = requestor,
                                 game_id = id,
@@ -45,5 +45,5 @@ games.details <- {
                                 partner_teacher_points = requestor_teacher_points,	
                                 finished_date = finished_date)$dt
   
-  game.summary.dt <- ftable(requestor.games.dt)$union(requestee.games.dt)$dt
+  game.details <- ftable(requestor.games)$union(requestee.games)$dt
 }
