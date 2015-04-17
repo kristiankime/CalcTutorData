@@ -48,8 +48,31 @@ ftable <- function(dt) {
       ftable(data)
     },
     
-    leftJoin = function(otherTable, by = NULL, suffixes = c(".x", ".y"), allow.cartesian=getOption("datatable.allow.cartesian"), ...) {
-      data <- merge(x = dt, y = otherTable, by = by, all.x =TRUE, suffixes = suffixes, allow.cartesian=allow.cartesian, ...)
+    leftJoin = function(otherTable, on) {
+      thisOldKey <- key(dt)
+      otherOldKey <- key(otherTable)
+      setkeyv(dt, on)
+      setkeyv(otherTable, on)
+      data <- dt[otherTable]
+      setkeyv(dt, thisOldKey)
+      setkeyv(otherTable, otherOldKey)
+      ftable(data)
+    },
+    
+    rightJoin = function(otherTable, on) {
+      thisOldKey <- key(dt)
+      otherOldKey <- key(otherTable)
+      setkeyv(dt, on)
+      setkeyv(otherTable, on)
+      data <- otherTable[dt]
+      setkeyv(dt, thisOldKey)
+      setkeyv(otherTable, otherOldKey)
+      ftable(data)
+    },
+    
+    group = function(..., by) {
+      expr <- substitute(list(...))
+      data <- dt[, eval(expr), by=by]
       ftable(data)
     },
     
@@ -63,9 +86,4 @@ ftable <- function(dt) {
 print.ftable <- function(x, ...) {
   print(x$dt, ...)
 }
-
-# data <- data.table(col1 = 1:3, col2 = 4:6, col3 = 7:9, col4 = 10:12)
-# fdt <- ftable(data)
-# fdt$filter( col1 == 1 & col2 == 4 )
-# fdt$select(col1, col2)
 

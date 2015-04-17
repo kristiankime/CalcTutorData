@@ -1,6 +1,6 @@
 
 
-game.math10a.dt <- {
+game.teacher.dt <- {
   user.main <- ftable(user.math10A.dt)$select(user_id=user_id, user_name=name, user_math10a=math10a)$dt
   user.partner <- ftable(user.math10A.dt)$select(partner_id=user_id, partner_name=name, partner_math10a=math10a)$dt
   game.math10a.dt <- ftable(game.summary.dt)$merge(user.main, by=("user_id"))$merge(user.partner, by=("partner_id"))$dt
