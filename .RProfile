@@ -1,5 +1,5 @@
-library("RPostgreSQL")
-library("sqldf")
+# library("RPostgreSQL")
+# library("sqldf")
 library("data.table")
 library("foreach")
 library("iterators")
