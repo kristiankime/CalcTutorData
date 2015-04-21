@@ -76,6 +76,17 @@ ftable <- function(dt) {
       ftable(data)
     },
     
+    order = function(...) {
+      expr <- substitute(order(...))
+      data <- dt[eval(expr)]
+      ftable(data)
+    },
+    
+    rename = function(oldName, newName) {
+      setnames(dt, oldName, newName)
+      ftable(dt)
+    },
+    
     dt = dt
     )
   class(ret) <- "ftable"
