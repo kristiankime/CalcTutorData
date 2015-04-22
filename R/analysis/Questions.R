@@ -1,5 +1,6 @@
 # questions.details.dt <- QuestionDetails()
 
+analysisDir = paste0(dataRoot, "/analysis") 
 
 # matching to attempts/correct to difficulty
 users10a <- ftable(UsersMath10A())$rename("user_id", "answerer_id")$dt
@@ -22,7 +23,9 @@ summary(fit) # Note negative
 
 
 
-analysisDir = paste0(dataRoot, "/analysis") 
+
+# =============== WIP below here
+
 
 
 

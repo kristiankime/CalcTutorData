@@ -7,6 +7,15 @@ gm10a$easyQuestion <- ((gm10a$question_difficulty / gm10a$partner_skill) <= .25)
 gm10a$goodEasyQuestion <- (gm10a$easyQuestion & (!gm10a$correct))
 gm10a$goodQuestion <- (gm10a$goodHardQuestion | gm10a$goodEasyQuestion)
 
+
+gm10a.goodTeacher <- ftable(gm10a)$filter(user_teacher_points >= .7)$order(user_id)$dt
+
+gm10a.goodTeacher2 <- ftable(gm10a)$group(num_questions=.N, 
+         num_good=sum(goodQuestion, na.rm=TRUE), 
+         percent=(sum(goodQuestion, na.rm=TRUE) / .N), 
+         by="user_id")$order(-percent)$dt
+
+
 numQuestions <- nrow(gm10a)
 numGoodQuestions <- nrow(gm10a[gm10a$goodQuestion])
 
@@ -17,4 +26,5 @@ analysisDir = paste0(dataRoot, "/analysis")
 pdf(paste0(analysisDir, "/Partner Skill vs Asked Question Difficulty.pdf"),width=7,height=5)
 plot(gm10a$partner_skill, gm10a$question_difficulty, xlab = "Partner Skill", ylab="Question Difficulty")
 dev.off()
+
 
