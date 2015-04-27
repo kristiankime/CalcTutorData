@@ -16,3 +16,6 @@ derivatives.math10a.games.qa <- ftable(derivatives.qa)$filter(math10a == TRUE & 
 
 
 # $select(question_id, asker_id=asker_id, answerer_id=owner, quiz_id, question_difficulty, type, question, correct, attempts)$dt
+
+
+d[, head(.SD, 3), by=cyl]

@@ -10,6 +10,7 @@ questions.dt <- ftable(questions.details.dt)$merge(users10a, by=c("answerer_id")
 
 
 
+# =============== Question Difficulty
 # 
 questions.summary.dt <- ftable(questions.details.dt)$group(
   difficulty=max(question_difficulty),
@@ -37,12 +38,12 @@ questions.summary.n.dt <- ftable(questions.details.dt)$filter(type == "der")$gro
   percent_correct=sum(correct) / .N,
   by=c("question_id"))$order(-difficulty)$filter(num_answerers > 1)$dt
 
-#pdf(paste0(analysisDir, "/Question Difficulty Vs Percent Correct.pdf"),width=7,height=5)
+pdf(paste0(analysisDir, "/Question Difficulty Vs Percent Correct.pdf"),width=7,height=5)
 diff.vs.percentCorrect <- lm(percent_correct ~ difficulty, data=questions.summary.n.dt)
 plot(questions.summary.n.dt$difficulty, questions.summary.n.dt$percent_correct)
 text(questions.summary.n.dt$difficulty, questions.summary.n.dt$percent_correct, labels=questions.summary.n.dt$question_id, cex= 0.7)
 abline(diff.vs.percentCorrect) 
-#dev.off()
+dev.off()
 summary(diff.vs.percentCorrect)
 nrow(questions.summary.n.dt)
 
